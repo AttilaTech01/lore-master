@@ -10,7 +10,6 @@ function App() {
   const [view, setView] = useState<"input" | "quiz">("input");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(false);
-  const [score, setScore] = useState(0);
 
   const handleGenerate = async (topic: string) => {
     setLoading(true);
@@ -26,7 +25,6 @@ function App() {
   };
 
   const handleComplete = (finalScore: number) => {
-    setScore(finalScore);
     alert(`You got ${finalScore}/${questions.length} correct! +${finalScore * 10} XP`);
     setView("input");
   };
