@@ -6,17 +6,11 @@ export interface Question {
   explanation: string;
 }
 
-export interface Quiz {
-  id: string;
-  topic: string;
-  questions: Question[];
-  createdAt: string;
-}
-
-export interface UserScore {
+export interface Profile {
   id: string;
   username: string;
   xp: number;
-  quizzesCompleted: number;
-  createdAt: string;
+  quizzes_completed: number;
+  created_at: string;
+  rank_title?: string; // From the leaderboard view
 }

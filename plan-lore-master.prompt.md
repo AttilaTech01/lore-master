@@ -4,12 +4,12 @@
 
 - **Name**: Lore-Master - AI-Powered Niche Quiz Engine
 - **Stack**: Vite + React + TypeScript, Supabase (PostgreSQL + Auth)
-- **AI**: Both OpenAI and Anthropic supported
+- **AI**: Anthropic supported (work on OpenAI support later)
 
 ## MVP Features
 
 1. Topic Selection - User types niche topic
-2. Quiz Generation - AI generates 5 questions with 4 multiple-choice answers
+2. Quiz Generation - AI generates 5 questions with 4 multiple-choice answers (Mock data are given as fallback)
 3. Verification - AI self-correction with source citation
 4. Feedback - XP system + Supabase-backed leaderboard
 
@@ -27,15 +27,15 @@
 ### Phase 2: Core Quiz Flow
 
 - [x] Step 5: Build TopicInput component for niche topic entry
-- [WIP] Step 6: Create AI generation service (both OpenAI + Anthropic)
+- [WIP] Step 6: Create AI generation service (Anthropic only)
 - [x] Step 7: Build Quiz component with 5 questions × 4 multiple-choice answers
-- [WIP] Step 8: Implement answer selection and scoring logic
+- [x] Step 8: Implement answer selection and scoring logic
 
 ### Phase 3: Verification & Feedback
 
 - [ ] Step 9: Add hidden AI self-correction step (source citation)
 - [ ] Step 10: Create XP tracking system
-- [ ] Step 11: Build simple leaderboard with Supabase queries
+- [x] Step 11: Build simple leaderboard with Supabase queries
 
 ### Phase 4: Polish
 
@@ -44,83 +44,50 @@
 
 ---
 
-## Key Files to Create
-
-### src/lib/supabase.ts
-
-```typescript
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-```
-
-### src/types/index.ts
-
-```typescript
-export interface Question {
-  id: string;
-  question: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
-}
-
-export interface Quiz {
-  id: string;
-  topic: string;
-  questions: Question[];
-  createdAt: string;
-}
-
-export interface UserScore {
-  id: string;
-  username: string;
-  xp: number;
-  quizzesCompleted: number;
-  createdAt: string;
-}
-```
-
-### src/services/aiGenerator.ts
-
-- AI question generation service supporting both OpenAI and Anthropic
-- Generates 5 questions with 4 multiple-choice answers per topic
-- Includes verification/self-correction step
-- Includes a demo mode that returns hardcoded questions if no API key is provided
-
-### src/components/TopicInput.tsx
-
-- Topic entry form
-- User types niche topic (e.g., "Star Wars: The High Republic")
-
-### src/components/Quiz.tsx
-
-- Quiz display and scoring
-- Shows one question at a time
-- Tracks score and progress
-
-### src/components/Leaderboard.tsx
-
-- Simple leaderboard
-- Displays top users by XP
-
----
-
 ## Database Schema (Supabase)
 
-Nothing yet, but we will need at least the following tables:
+### Table: profiles
 
-- `user_scores`: id (UUID), username (text), xp (integer), quizzes_completed (integer), created_at (timestamp)
-- `quiz_results`: id (UUID), user_id (UUID), topic (text), score (integer), total_questions (integer), created_at (timestamp)
+| Column            | Type        | Description                     |
+| ----------------- | ----------- | ------------------------------- |
+| id                | UUID        | Primary key (gen_random_uuid()) |
+| username          | TEXT        | Unique player name              |
+| xp                | INTEGER     | Total XP earned (default 0)     |
+| quizzes_completed | INTEGER     | Number of quizzes completed     |
+| created_at        | TIMESTAMPTZ | Creation timestamp              |
+
+### Table: quiz_results
+
+| Column          | Type        | Description                           |
+| --------------- | ----------- | ------------------------------------- |
+| id              | UUID        | Primary key                           |
+| profile_id      | UUID        | Foreign key → profiles(id)            |
+| topic           | TEXT        | Quiz topic (e.g., "The Silmarillion") |
+| score           | INTEGER     | Correct answers                       |
+| total_questions | INTEGER     | Total questions (5)                   |
+| created_at      | TIMESTAMPTZ | Submission timestamp                  |
+
+### Table: ranks
+
+| Column   | Type    | Description                                                          |
+| -------- | ------- | -------------------------------------------------------------------- |
+| id       | UUID    | Primary key                                                          |
+| title    | TEXT    | Rank title (Novice, Apprentice, Scholar, Lore-Master, Grand Maester) |
+| min_xp   | INTEGER | XP threshold to unlock                                               |
+| icon_url | TEXT    | Optional badge URL                                                   |
+
+### View: leaderboard
+
+- Joins profiles with ranks to show username, xp, quizzes_completed, and rank_title
+- Ordered by xp DESC
 
 ### RLS Policies
 
-- Users can read all scores
-- Users can insert their own scores
-- Users can update their own scores only
+- "Public read access for scores" — SELECT on profiles
+- "Users can insert their own scores" — INSERT on profiles
+- "Users can update their own scores" — UPDATE on profiles
+- "Public read access for attempts" — SELECT on quiz_results
+- "Users can insert their own attempts" — INSERT on quiz_results
 
 ---
 
