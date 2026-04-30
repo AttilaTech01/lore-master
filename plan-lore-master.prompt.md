@@ -34,7 +34,7 @@
 ### Phase 3: Verification & Feedback
 
 - [ ] Step 9: Add hidden AI self-correction step (source citation)
-- [ ] Step 10: Create XP tracking system
+- [WIP] Step 10: Create XP tracking system with a notion of dynamic XP rewards based on question difficulty and user performance
 - [x] Step 11: Build simple leaderboard with Supabase queries
 
 ### Phase 4: Polish
@@ -91,6 +91,19 @@
 
 ---
 
+## Mock Quizzes
+
+| Key         | Theme                     |
+| ----------- | ------------------------- |
+| starwars    | Jedi, Sith, Force         |
+| lotr        | Tolkien lore              |
+| general     | Trivia (gold, WWII, etc.) |
+| pokemon     | Pokemon games             |
+| harrypotter | TEHarry Potter universe   |
+| gaming      | Video game history        |
+
+---
+
 ## Environment Variables
 
 ### .env
@@ -127,7 +140,7 @@ VITE_OPENAI_API_KEY=placeholder_openai_api_key_here
 
 ## Next Steps
 
-1. Add real Anthropic API key to .env (get from console.anthropic.com/settings/keys)
-2. Create Supabase tables (user_scores, quiz_results)
-3. Connect Leaderboard component to Supabase
+1. Setup the XP logic system (define XP thresholds for ranks, calculate XP based on quiz performance) - In progress, aiming for a dynamic system that rewards harder questions more
+2. Test the full quiz flow with mock data to ensure UI and logic work before integrating real AI generation
+3. Add real Anthropic API key to .env (get from console.anthropic.com/settings/keys)
 4. Test with real AI-generated questions
