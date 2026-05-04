@@ -138,9 +138,20 @@ VITE_OPENAI_API_KEY=placeholder_openai_api_key_here
 
 ---
 
-## Next Steps
+## Next Steps - Features
 
 1. Setup the XP logic system (define XP thresholds for ranks, calculate XP based on quiz performance) - In progress, aiming for a dynamic system that rewards harder questions more
 2. Test the full quiz flow with mock data to ensure UI and logic work before integrating real AI generation
 3. Add real Anthropic API key to .env (get from console.anthropic.com/settings/keys)
 4. Test with real AI-generated questions
+
+---
+
+## Next Steps - Architectural Improvements
+
+1. Styling — Makes the app usable
+2. Error Boundaries — Prevents full crashes
+3. Validation — Ensures data integrity from Supabase
+4. Testing — Core services (xpService, aiGenerator)
+5. Accessibility — SEO + usability
+6. Performance — If needed after testing

@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { TopicInput } from "./components/TopicInput";
-import { Quiz } from "./components/Quiz";
 import { Leaderboard } from "./components/Leaderboard";
+import { ProfileHeader } from "./components/ProfileHeader";
+import { Quiz } from "./components/Quiz";
+import { TopicInput } from "./components/TopicInput";
+import { UsernameEntry } from "./components/UsernameEntry";
 import { generateQuiz } from "./services/aiGenerator";
-import { calculateXp, getRankTitle, formatXp } from "./services/xpService";
 import { getOrCreateProfile, addQuizResult, getStoredUsername, setStoredUsername } from "./services/profileService";
+import { calculateXp, getRankTitle, formatXp } from "./services/xpService";
 import type { Question, Profile } from "./types";
 import "./App.css";
+import { QuizResultsSummary } from "./components/QuizResultsSummary";
 
 function App() {
   const [view, setView] = useState<"input" | "quiz">("input");
@@ -88,42 +91,11 @@ function App() {
       <h1>Lore Master</h1>
 
       {showUsernameInput ? (
-        <div className="username-input">
-          <p>Enter your username to start:</p>
-          <input
-            type="text"
-            placeholder="Username"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleUsernameSubmit((e.target as HTMLInputElement).value);
-              }
-            }}
-          />
-          <button
-            onClick={() => {
-              const input = document.querySelector(".username-input input") as HTMLInputElement;
-              if (input.value.trim()) {
-                handleUsernameSubmit(input.value.trim());
-              }
-            }}
-          >
-            Start
-          </button>
-        </div>
+        <UsernameEntry onSubmit={handleUsernameSubmit} />
       ) : (
         <>
-          {currentProfile && (
-            <div className="user-info-container">
-              <span className="user-info-line">
-                {currentProfile.username} {formatXp(currentProfile.xp)} {getRankTitle(currentProfile.xp)}
-              </span>
-            </div>
-          )}
-          {results && (
-            <div className="last-score">
-              Results: {results.score}/{questions.length} correct (+{formatXp(results.xp)})
-            </div>
-          )}
+          {currentProfile && <ProfileHeader profile={currentProfile} />}
+          {results && <QuizResultsSummary results={results} totalQuestions={questions.length} />}
           {view === "input" ? <TopicInput onSubmit={handleGenerate} isLoading={loading} /> : <Quiz questions={questions} onComplete={handleComplete} />}
           <Leaderboard refreshTrigger={leaderboardRefresh} />
         </>
