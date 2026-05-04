@@ -1,0 +1,23 @@
+.leaderboard ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+}
+
+.rank {
+  font-weight: 700;
+  color: var(--accent);
+}

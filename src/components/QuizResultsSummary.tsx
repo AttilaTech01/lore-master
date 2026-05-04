@@ -10,7 +10,7 @@ interface QuizResultsSummaryProps {
 
 export function QuizResultsSummary({ results, totalQuestions }: QuizResultsSummaryProps) {
   return (
-    <div className="last-score">
+    <div className="card">
       Results: {results.score}/{totalQuestions} correct (+{formatXp(results.xp)})
     </div>
   );

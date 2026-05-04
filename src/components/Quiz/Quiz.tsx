@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { Question } from "../types";
+import type { Question } from "../../types";
+import "./Quiz.css";
 
 interface QuizProps {
   questions: Question[];
@@ -34,7 +35,7 @@ export function Quiz({ questions, onComplete }: QuizProps) {
   };
 
   return (
-    <div className="quiz">
+    <div className="card quiz">
       <div className="progress">
         Question {currentIndex + 1} of {questions.length}
       </div>

@@ -13,7 +13,7 @@ export function UsernameEntry({ onSubmit }: UsernameEntryProps) {
   };
 
   return (
-    <div className="username-input">
+    <div className="card input-field">
       <p>Enter your username to start:</p>
       <form onSubmit={handleSubmit}>
         <input type="text" name="username" placeholder="Username" required minLength={1} maxLength={50} />

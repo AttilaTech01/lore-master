@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
-import type { Profile } from "../types";
+import { supabase } from "../../lib/supabase";
+import type { Profile } from "../../types";
+import "./Leaderboard.css";
 
 interface LeaderboardProps {
   refreshTrigger?: number;
@@ -28,13 +29,13 @@ export function Leaderboard({ refreshTrigger = 0 }: LeaderboardProps) {
   if (loading) return <div>Loading leaderboard...</div>;
 
   return (
-    <div className="leaderboard">
+    <div className="card leaderboard">
       <h2>🏆 Leaderboard</h2>
       <ol>
         {profiles.map((profile) => (
           <li key={profile.username}>
-            <span className="rank">{profile.rank_title}</span> <span className="username">{profile.username}</span> — <span className="xp">{profile.xp}xp</span>{" "}
-            ({profile.quizzes_completed} quizzes)
+            <span className="rank">{profile.rank_title}</span> <span>{profile.username}</span> — <span>{profile.xp}xp</span> ({profile.quizzes_completed}{" "}
+            quizzes)
           </li>
         ))}
       </ol>

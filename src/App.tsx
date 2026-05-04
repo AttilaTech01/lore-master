@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
-import { Leaderboard } from "./components/Leaderboard";
-import { ProfileHeader } from "./components/ProfileHeader";
-import { Quiz } from "./components/Quiz";
+
+import { Leaderboard } from "./components/Leaderboard/Leaderboard";
+import { ProfileHeader } from "./components/ProfileHeader/ProfileHeader";
+import { Quiz } from "./components/Quiz/Quiz";
+import { QuizResultsSummary } from "./components/QuizResultsSummary";
 import { TopicInput } from "./components/TopicInput";
 import { UsernameEntry } from "./components/UsernameEntry";
+
 import { generateQuiz } from "./services/aiGenerator";
 import { getOrCreateProfile, addQuizResult, getStoredUsername, setStoredUsername } from "./services/profileService";
 import { calculateXp, getRankTitle, formatXp } from "./services/xpService";
+
 import type { Question, Profile } from "./types";
+
 import "./App.css";
-import { QuizResultsSummary } from "./components/QuizResultsSummary";
 
 function App() {
   const [view, setView] = useState<"input" | "quiz">("input");

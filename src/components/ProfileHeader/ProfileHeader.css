@@ -1,0 +1,13 @@
+.user-info-line {
+  display: inline-flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+@media (max-width: 720px) {
+  .user-info-line {
+    font-size: 0.98rem;
+  }
+}

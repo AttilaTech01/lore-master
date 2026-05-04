@@ -16,7 +16,7 @@ export function TopicInput({ onSubmit, isLoading }: TopicInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="topic-input">
+    <form onSubmit={handleSubmit} className="card input-field">
       <input
         type="text"
         value={topic}

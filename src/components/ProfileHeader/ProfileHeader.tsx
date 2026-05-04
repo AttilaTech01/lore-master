@@ -1,5 +1,6 @@
-import { formatXp, getRankTitle } from "../services/xpService";
-import type { Profile } from "../types";
+import { formatXp, getRankTitle } from "../../services/xpService";
+import type { Profile } from "../../types";
+import "./ProfileHeader.css";
 
 interface ProfileHeaderProps {
   profile: Profile;
@@ -7,7 +8,7 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
   return (
-    <div className="user-info-container">
+    <div className="card">
       <span className="user-info-line">
         {profile.username} {formatXp(profile.xp)} {getRankTitle(profile.xp)}
       </span>
