@@ -45,7 +45,7 @@ export const mockQuizzes: Record<string, Question[]> = {
     {
       id: crypto.randomUUID(),
       question: "What is the name of the Elvish word for 'friend' that appears in the title 'Fellowship of the Ring'?",
-      options: ["Mellon", "Mithrandir", "Mellon", "Eldar"],
+      options: ["Nazgul", "Mithrandir", "Mellon", "Eldar"],
       correctAnswer: 2,
       explanation: "Mellon means 'friend' in Elvish - it's the password to the Mines of Moria.",
     },

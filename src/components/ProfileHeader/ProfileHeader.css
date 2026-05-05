@@ -1,3 +1,23 @@
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.profile-name {
+  font-weight: 700;
+  color: var(--text-h);
+}
+
 .user-info-line {
   display: inline-flex;
   gap: 12px;
@@ -6,8 +26,25 @@
   color: var(--text-h);
 }
 
+.logout-button {
+  padding: 10px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 720px) {
-  .user-info-line {
+  .user-info-line,
+  .profile-details {
     font-size: 0.98rem;
   }
 }
